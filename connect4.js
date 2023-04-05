@@ -19,6 +19,14 @@ let board = []; // array of rows, each row is array of cells  (board[y][x])
 
 function makeBoard() {
   // TODO: set "board" to empty HEIGHT x WIDTH matrix array
+
+  board = new Array(HEIGHT);
+
+  for (let y = 0; y < board.length; y++) {
+    board[y] = new Array(WIDTH);
+  }
+
+  console.log("board:", board);
 }
 
 /** makeHtmlBoard: make HTML table and row of column tops. */
@@ -131,9 +139,10 @@ function checkForWin() {
         [y, x + 2],
         [y, x + 3],
       ];
-      const vert;
-      const diagDL;
-      const diagDR;
+      //TODO: make the const again
+      let vert;
+      let diagDL;
+      let diagDR;
 
       // find winner (only checking each win-possibility as needed)
       if (

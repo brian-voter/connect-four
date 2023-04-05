@@ -25,8 +25,6 @@ function makeBoard() {
   for (let y = 0; y < board.length; y++) {
     board[y] = new Array(WIDTH);
   }
-
-  console.log("board:", board);
 }
 
 /** makeHtmlBoard: make HTML table and row of column tops. */

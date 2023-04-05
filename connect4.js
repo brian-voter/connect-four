@@ -20,11 +20,16 @@ let board = []; // array of rows, each row is array of cells  (board[y][x])
 function makeBoard() {
   // TODO: set "board" to empty HEIGHT x WIDTH matrix array
 
-  board = new Array(HEIGHT);
-
-  for (let y = 0; y < board.length; y++) {
-    board[y] = new Array(WIDTH);
+  for (let y = 0; y < HEIGHT; y++) {
+    board.push(Array.from({length:WIDTH}));
   }
+
+
+  // board = new Array(HEIGHT);
+
+  // for (let y = 0; y < board.length; y++) {
+  //   board[y] = new Array(WIDTH);
+  // }
 }
 
 /** makeHtmlBoard: make HTML table and row of column tops. */
@@ -132,7 +137,7 @@ function checkForWin() {
    * returns true if all are legal coordinates for a cell & all cells match
    * currPlayer
    */
-  function checkForCells(cells) {
+  function _checkForCells(cells) {
     // TODO: Check four cells to see if they're all legal & all color of current
     // player
   }
@@ -153,17 +158,17 @@ function checkForWin() {
         [y, x + 2],
         [y, x + 3],
       ];
-      //TODO: make the const again
+      //TODO: make these const again
       let vert;
       let diagDL;
       let diagDR;
 
       // find winner (only checking each win-possibility as needed)
       if (
-        checkForCells(horiz) ||
-        checkForCells(vert) ||
-        checkForCells(diagDR) ||
-        checkForCells(diagDL)
+        _checkForCells(horiz) ||
+        _checkForCells(vert) ||
+        _checkForCells(diagDR) ||
+        _checkForCells(diagDL)
       ) {
         return true;
       }

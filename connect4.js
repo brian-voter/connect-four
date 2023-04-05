@@ -21,9 +21,8 @@ function makeBoard() {
   // TODO: set "board" to empty HEIGHT x WIDTH matrix array
 
   for (let y = 0; y < HEIGHT; y++) {
-    board.push(Array.from({length:WIDTH}));
+    board.push(Array.from({ length: WIDTH }));
   }
-
 
   // board = new Array(HEIGHT);
 
@@ -95,10 +94,13 @@ function placeInTable(y, x) {
   // TODO: make a div and insert into correct table cell
 
   const div = document.createElement("div");
+  console.log("div =", div);
 
   div.setAttribute("class", `piece p${currPlayer}`);
 
-  const cell = document.getElementById(`c-${y}-${x}`);
+  const cell = document.getElementById("c-" + y + "-" + x);
+  // const cell = document.getElementById("c-0-0");
+  console.log("cell =", cell);
 
   cell.append(div);
 }

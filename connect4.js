@@ -105,12 +105,12 @@ function handleClick(evt) {
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
 
 function checkForWin() {
-  /** _win:
+  /** checkForCells:
    * takes input array of 4 cell coordinates [ [y, x], [y, x], [y, x], [y, x] ]
    * returns true if all are legal coordinates for a cell & all cells match
    * currPlayer
    */
-  function _win(cells) {
+  function checkForCells(cells) {
     // TODO: Check four cells to see if they're all legal & all color of current
     // player
   }
@@ -125,18 +125,23 @@ function checkForWin() {
       // each should be an array of 4 cell coordinates:
       // [ [y, x], [y, x], [y, x], [y, x] ]
 
-      let horiz = [
+      const horiz = [
         [y, x],
         [y, x + 1],
         [y, x + 2],
         [y, x + 3],
       ];
-      let vert;
-      let diagDL;
-      let diagDR;
+      const vert;
+      const diagDL;
+      const diagDR;
 
       // find winner (only checking each win-possibility as needed)
-      if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
+      if (
+        checkForCells(horiz) ||
+        checkForCells(vert) ||
+        checkForCells(diagDR) ||
+        checkForCells(diagDL)
+      ) {
         return true;
       }
     }

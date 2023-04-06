@@ -95,6 +95,7 @@ function findSpotForCol(x) {
 function placeInTable(y, x) {
   // TODO: make a div and insert into correct table cell
 
+  //FIXME: change div -> piece
   const div = document.createElement("div");
   div.setAttribute("class", `piece p${currPlayer}`);
 
@@ -135,6 +136,7 @@ function handleClick(evt) {
   // TODO: check if all cells in board are filled; if so call, call endGame
 
   //TODO: test me
+  //FIXME: more efficient way would be to check the top row
   const allFilled = board.every((row) => {
     return row.every((cell) => {
       return cell === 1 || cell === 2;

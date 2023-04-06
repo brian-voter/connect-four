@@ -48,7 +48,7 @@ function makeHtmlBoard() {
   // adds cells to the aformentioned row with id set to top-x
   for (let x = 0; x < WIDTH; x++) {
     const headCell = document.createElement("td");
-    headCell.setAttribute("id", x);
+    headCell.setAttribute("id", `top-${x}`);
     top.append(headCell);
   }
   htmlBoard.append(top);
@@ -120,7 +120,7 @@ function endGame(msg) {
 
 function handleClick(evt) {
   // get x from ID of clicked cell
-  const x = +evt.target.id;
+  const x = Number(evt.target.id.slice("top-".length));
 
   // get next spot in column (if none, ignore click)
   const y = findSpotForCol(x);

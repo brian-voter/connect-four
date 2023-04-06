@@ -18,9 +18,9 @@ let board = []; // array of rows, each row is array of cells  (board[y][x])
  */
 
 function makeBoard() {
-  // TODO: set "board" to empty HEIGHT x WIDTH matrix array
+  // set "board" to empty HEIGHT x WIDTH matrix array
   for (let y = 0; y < HEIGHT; y++) {
-    board.push(Array.from({ length: WIDTH }));
+    board.push(new Array(WIDTH));
     board[y].fill(null);
   }
 }
@@ -30,14 +30,10 @@ function makeBoard() {
 function makeHtmlBoard() {
   const htmlBoard = document.getElementById("board");
 
-  // TODO: add comment for this code
-
   // creates a new table row at the top, that when clicked, invokes handleClick()
   const top = document.createElement("tr");
   top.setAttribute("id", "column-top");
   top.addEventListener("click", handleClick);
-
-  // TODO: add comment for this code
 
   // adds cells to the aformentioned row with id set to top-x
   for (let x = 0; x < WIDTH; x++) {
@@ -51,25 +47,15 @@ function makeHtmlBoard() {
   // uses HEIGHT to create table rows
   // uses WIDTH to create table cells for each row
   for (let y = 0; y < HEIGHT; y++) {
-    // TODO: Create a table row element and assign to a "row" variable
 
     const row = document.createElement("tr");
 
     for (let x = 0; x < WIDTH; x++) {
-      // TODO: Create a table cell element and assign to a "cell" variable
-
       const cell = document.createElement("td");
-
-      // TODO: add an id, c-y-x, to the above table cell element
-
       cell.setAttribute("id", `c-${y}-${x}`);
-
-      // you'll use this later, so make sure you use c-y-x
-      // TODO: append the table cell to the table row
 
       row.append(cell);
     }
-    // TODO: append the row to the html board
 
     htmlBoard.append(row);
   }
@@ -78,8 +64,6 @@ function makeHtmlBoard() {
 /** findSpotForCol: given column x, return bottom empty y (null if filled) */
 
 function findSpotForCol(x) {
-  // TODO: write the real version of this, rather than always returning 5
-
   for (let y = HEIGHT - 1; y >= 0; y--) {
     if (!board[y][x]) {
       return y;
@@ -93,20 +77,16 @@ function findSpotForCol(x) {
 /** placeInTable: update DOM to place piece into HTML table of board */
 
 function placeInTable(y, x) {
-  // TODO: make a div and insert into correct table cell
-
-  //FIXME: change div -> piece
-  const div = document.createElement("div");
-  div.setAttribute("class", `piece p${currPlayer}`);
+  const piece = document.createElement("div");
+  piece.setAttribute("class", `piece p${currPlayer}`);
 
   const cell = document.getElementById(`c-${y}-${x}`);
-  cell.append(div);
+  cell.append(piece);
 }
 
 /** endGame: announce game end */
 
 function endGame(msg) {
-  // TODO: pop up alert message
   window.alert(msg);
 }
 
@@ -123,7 +103,6 @@ function handleClick(evt) {
   }
 
   // place piece in board and add to HTML table
-  // TODO: add line to update in-memory board
   placeInTable(y, x);
   board[y][x] = currPlayer;
 
@@ -133,7 +112,6 @@ function handleClick(evt) {
   }
 
   // check for tie
-  // TODO: check if all cells in board are filled; if so call, call endGame
 
   //TODO: test me
   //FIXME: more efficient way would be to check the top row
@@ -149,7 +127,6 @@ function handleClick(evt) {
 
   // switch players
   currPlayer = currPlayer === 1 ? 2 : 1;
-  // TODO: switch currPlayer 1 <-> 2
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
@@ -161,7 +138,6 @@ function checkForWin() {
    * currPlayer
    */
   function _checkForCells(cells) {
-    // TODO: Check four cells to see if they're all legal & all color of current
     // player
     return cells.every(
       ([y, x]) =>
@@ -178,7 +154,6 @@ function checkForWin() {
   // ways to win: horizontal, vertical, diagonalDR, diagonalDL
   for (let y = 0; y < HEIGHT; y++) {
     for (let x = 0; x < WIDTH; x++) {
-      // TODO: assign values to the below variables for each of the ways to win
       // horizontal has been assigned for you
       // each should be an array of 4 cell coordinates:
       // [ [y, x], [y, x], [y, x], [y, x] ]
@@ -190,7 +165,6 @@ function checkForWin() {
         [y, x + 3],
       ];
 
-      //TODO: make these const again
       const vert = [
         [y, x],
         [y + 1, x],

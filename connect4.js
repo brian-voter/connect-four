@@ -19,16 +19,10 @@ let board = []; // array of rows, each row is array of cells  (board[y][x])
 
 function makeBoard() {
   // TODO: set "board" to empty HEIGHT x WIDTH matrix array
-
   for (let y = 0; y < HEIGHT; y++) {
     board.push(Array.from({ length: WIDTH }));
+    board[y].fill(null);
   }
-
-  // board = new Array(HEIGHT);
-
-  // for (let y = 0; y < board.length; y++) {
-  //   board[y] = new Array(WIDTH);
-  // }
 }
 
 /** makeHtmlBoard: make HTML table and row of column tops. */
@@ -102,11 +96,9 @@ function placeInTable(y, x) {
   // TODO: make a div and insert into correct table cell
 
   const div = document.createElement("div");
-
   div.setAttribute("class", `piece p${currPlayer}`);
 
   const cell = document.getElementById(`c-${y}-${x}`);
-
   cell.append(div);
 }
 
@@ -114,6 +106,7 @@ function placeInTable(y, x) {
 
 function endGame(msg) {
   // TODO: pop up alert message
+  window.alert(msg);
 }
 
 /** handleClick: handle click of column top to play piece */
@@ -168,6 +161,14 @@ function checkForWin() {
   function _checkForCells(cells) {
     // TODO: Check four cells to see if they're all legal & all color of current
     // player
+    return cells.every(
+      ([y, x]) =>
+        y >= 0 &&
+        y < HEIGHT &&
+        x >= 0 &&
+        x < WIDTH &&
+        board[y][x] === currPlayer
+    );
   }
 
   // using HEIGHT and WIDTH, generate "check list" of coordinates
@@ -186,10 +187,28 @@ function checkForWin() {
         [y, x + 2],
         [y, x + 3],
       ];
+
       //TODO: make these const again
-      let vert;
-      let diagDL;
-      let diagDR;
+      const vert = [
+        [y, x],
+        [y + 1, x],
+        [y + 2, x],
+        [y + 3, x],
+      ];
+
+      const diagDL = [
+        [y, x],
+        [y + 1, x + 1],
+        [y + 2, x + 2],
+        [y + 3, x + 3],
+      ];
+
+      let diagDR = [
+        [y, x],
+        [y + 1, x - 1],
+        [y + 2, x - 2],
+        [y + 3, x - 3],
+      ];
 
       // find winner (only checking each win-possibility as needed)
       if (

@@ -48,7 +48,7 @@ function makeHtmlBoard() {
   // adds cells to the aformentioned row with id set to top-x
   for (let x = 0; x < WIDTH; x++) {
     const headCell = document.createElement("td");
-    headCell.setAttribute("id", `top-${x}`);
+    headCell.setAttribute("id", x);
     top.append(headCell);
   }
   htmlBoard.append(top);
@@ -85,7 +85,15 @@ function makeHtmlBoard() {
 
 function findSpotForCol(x) {
   // TODO: write the real version of this, rather than always returning 5
-  return 5;
+
+  for (let y = HEIGHT - 1; y >= 0; y--) {
+    if (!board[y][x]) {
+      return y;
+    }
+  }
+
+  // all cells in this column are filled
+  return null;
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
@@ -94,13 +102,10 @@ function placeInTable(y, x) {
   // TODO: make a div and insert into correct table cell
 
   const div = document.createElement("div");
-  console.log("div =", div);
 
   div.setAttribute("class", `piece p${currPlayer}`);
 
-  const cell = document.getElementById("c-" + y + "-" + x);
-  // const cell = document.getElementById("c-0-0");
-  console.log("cell =", cell);
+  const cell = document.getElementById(`c-${y}-${x}`);
 
   cell.append(div);
 }
@@ -126,6 +131,7 @@ function handleClick(evt) {
   // place piece in board and add to HTML table
   // TODO: add line to update in-memory board
   placeInTable(y, x);
+  board[y][x] = currPlayer;
 
   // check for win
   if (checkForWin()) {
@@ -135,7 +141,19 @@ function handleClick(evt) {
   // check for tie
   // TODO: check if all cells in board are filled; if so call, call endGame
 
+  //TODO: test me
+  const allFilled = board.every((row) => {
+    return row.every((cell) => {
+      return cell === 1 || cell === 2;
+    });
+  });
+
+  if (allFilled) {
+    endGame();
+  }
+
   // switch players
+  currPlayer = currPlayer === 1 ? 2 : 1;
   // TODO: switch currPlayer 1 <-> 2
 }
 

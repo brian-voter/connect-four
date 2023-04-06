@@ -10,8 +10,11 @@
 const WIDTH = 7;
 const HEIGHT = 6;
 
+const totalCells = WIDTH * HEIGHT;
+
 let currPlayer = 1; // active player: 1 or 2
 let board = []; // array of rows, each row is array of cells  (board[y][x])
+let movesMade = 0;
 
 /** makeBoard: create in-JS board structure:
  *    board = array of rows, each row is array of cells  (board[y][x])
@@ -93,6 +96,11 @@ function endGame(msg) {
 /** handleClick: handle click of column top to play piece */
 
 function handleClick(evt) {
+  // if all cells have been filled, the game is a tie
+  if (movesMade === totalCells) {
+    endGame("It's a tie!");
+  }
+
   // get x from ID of clicked cell
   const x = Number(evt.target.id.slice("top-".length));
 
@@ -104,25 +112,12 @@ function handleClick(evt) {
 
   // place piece in board and add to HTML table
   placeInTable(y, x);
+  movesMade++;
   board[y][x] = currPlayer;
 
   // check for win
   if (checkForWin()) {
     return endGame(`Player ${currPlayer} won!`);
-  }
-
-  // check for tie
-
-  //TODO: test me
-  //FIXME: more efficient way would be to check the top row
-  const allFilled = board.every((row) => {
-    return row.every((cell) => {
-      return cell === 1 || cell === 2;
-    });
-  });
-
-  if (allFilled) {
-    endGame();
   }
 
   // switch players
